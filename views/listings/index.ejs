@@ -1,0 +1,298 @@
+<% layout("/layouts/boilerplate") %>
+<style>
+#filter-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    margin: 0 auto 20px;
+    padding: 0 10px;
+}
+
+.filter-arrow {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 5;
+    transition: 0.2s ease;
+}
+
+.filter-arrow:hover {
+    background: #f1f1f1;
+    transform: scale(1.05);
+}
+
+.filter-arrow i {
+    font-size: 13px;
+}
+
+#filters {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    padding: 3px 2px;
+}
+
+#filters::-webkit-scrollbar {
+    display: none;
+}
+
+.filter {
+    min-width: 88px;
+    height: 58px;
+    padding: 7px 9px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    flex-shrink: 0;
+    transition: 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.filter:hover {
+    background-color: #e9ecef;
+    transform: translateY(-2px);
+}
+
+.filter i {
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.filter p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.1;
+    white-space: nowrap;
+}
+
+/* Display Taxes */
+
+.tax-toggle {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    height: 40px;
+    padding: 0 9px;
+    border: 1px solid #020202;
+    border-radius: 8px;
+    background: white;
+    white-space: nowrap;
+}
+
+.tax-toggle label {
+    font-size: 13px;
+    margin: 0;
+}
+</style>
+
+    <div id="filter-container">
+
+    <!-- Left Arrow -->
+    <button class="filter-arrow" id="left-arrow" type="button">
+        <i class="fa-solid fa-chevron-left"></i>
+    </button>
+
+    <!-- Filters -->
+    <div id="filters">
+
+        <div class="filter">
+            <div><i class="fa-solid fa-fire"></i></div>
+            <p>Trending</p>
+        </div>
+
+        <div class="filter">
+            <div><i class="fa-solid fa-bed"></i></div>
+            <p>Rooms</p>
+        </div>
+
+        <div class="filter">
+            <div><i class="fa-solid fa-mountain-city"></i></div>
+            <p>Iconic Cities</p>
+        </div>
+
+        <div class="filter">
+            <div><i class="fa-solid fa-mountain"></i></div>
+            <p>Mountains</p>
+        </div>
+
+        <div class="filter">
+            <div><i class="fa-solid fa-chess-rook"></i></div>
+            <p>Castles</p>
+        </div>
+
+        <div class="filter">
+            <div><i class="fa-solid fa-person-swimming"></i></div>
+            <p>Amazing pools</p>
+        </div>
+
+        <div class="filter">
+            <div><i class="fa-solid fa-campground"></i></div>
+            <p>Camping</p>
+        </div>
+
+        <div class="filter">
+            <div><i class="fa-solid fa-cow"></i></div>
+            <p>Farms</p>
+        </div>
+
+        <div class="filter">
+            <div><i class="fa-solid fa-igloo"></i></div>
+            <p>Domes</p>
+        </div>
+
+        <div class="filter">
+            <div><i class="fa-regular fa-snowflake"></i></div>
+            <p>Arctic</p>
+        </div>
+
+        <div class="filter">
+            <div><i class="fa-solid fa-sailboat"></i></div>
+            <p>Boats</p>
+        </div>
+
+    </div>
+
+    <!-- Right Arrow -->
+    <button class="filter-arrow" id="right-arrow" type="button">
+        <i class="fa-solid fa-chevron-right"></i>
+    </button>
+
+    <!-- Tax Toggle -->
+    <div class="tax-toggle">
+        <div>
+            <label for="switchCheckDefault">Display Taxes</label>
+        </div>
+
+        <div class="form-check-reverse form-switch">
+            <input
+                class="form-check-input"
+                type="checkbox"
+                role="switch"
+                id="switchCheckDefault"
+            >
+        </div>
+    </div>
+</div>
+
+<script>
+    const filters = document.getElementById("filters");
+    const leftArrow = document.getElementById("left-arrow");
+    const rightArrow = document.getElementById("right-arrow");
+
+    leftArrow.addEventListener("click", () => {
+        filters.scrollBy({
+            left: -250,
+            behavior: "smooth"
+        });
+    });
+
+    rightArrow.addEventListener("click", () => {
+        filters.scrollBy({
+            left: 250,
+            behavior: "smooth"
+        });
+    });
+</script>
+
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+
+    <% for (let listing of allListings) { %>
+
+        <a href="/listings/<%= listing._id %>" class="text-decoration-none text-dark">
+            <div class="card col listing-card">
+                <img
+                    src="<%= listing.image.url %>"
+                    class="card-img-top"
+                    alt="listing_image"
+                    style="height: 20rem"
+                >
+
+                <div class="card-img-overlay">
+                    ABcD
+                </div>
+
+                <div class="card-body">
+                    <p class="card-text">
+                        <b><%= listing.title %></b>
+                        <br>
+
+                        <span
+                            class="price"
+                            data-price="<%= listing.price %>"
+                        >
+                            &#8377;<%= listing.price.toLocaleString("en-IN") %>
+                        </span>
+                        /night
+                        <span class="tax-label">
+                            <% if(listing.taxIncluded) { %>
+                                <span class="text-success">( Tax Included )</span>
+                            <% } else { %>
+                                <span class="text-danger">( Tax Not Included )</span>
+                            <% } %>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </a>
+    <% } %>
+
+</div>
+
+<script>
+
+    let taxSwitch = document.getElementById("switchCheckDefault");
+    taxSwitch.addEventListener("change", () => {
+        let prices = document.querySelectorAll(".price");
+
+        prices.forEach((price) => {
+
+            // Always get original price
+            let originalPrice = parseFloat(price.dataset.price);
+            if (taxSwitch.checked) {
+
+                // Add 18% tax
+                let taxAmount = originalPrice * 0.18;
+                let finalPrice = originalPrice + taxAmount;
+
+                price.innerHTML =
+                    `&#8377;${finalPrice.toLocaleString("en-IN")}`;
+            } else {
+                // Back to original price
+                price.innerHTML =
+                    `&#8377;${originalPrice.toLocaleString("en-IN")}`;
+            }
+        });
+        // Change tax text
+        let taxLabels = document.querySelectorAll(".tax-label");
+        taxLabels.forEach((label) => {
+
+            if (taxSwitch.checked) {
+                label.innerHTML =
+                    `<span class="text-success">( Tax Included )</span>`;
+            } else {
+                label.innerHTML =
+                    `<span class="text-danger">( Tax Not Included )</span>`;
+            }
+        });
+    });
+
+</script>
